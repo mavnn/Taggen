@@ -1,11 +1,19 @@
-﻿open Taggen
+﻿open Taggen.Core
+open Taggen.Img
+open Taggen.Text
+open Taggen.Links
 
 let f1 = Text("boo")
-let f2 = FragAttr("p", Some(Map.ofList [("style", "background : red;")]), [Text "My paragraph with a red background."])
-let f3 = FragAttr("b", None, [Text "boo"])
-let f4 = FragAttr("div.fadeIn.fadeOut#myContent", None, [f2;f3])
+let f2 = 
+    FragAttr("p", 
+        Some([("style", "background : red;")]),
+        [Text "My paragraph with a red background."])
+let f3 = Frag("b", [Text "boo"])
+let f4 = Frag("div.fadeIn.fadeOut#myContent", [f2;f3])
 let f5 x = Frag("div", 
                 [
+                    img "An image of an image." "http://example.com/image.jpg"
+                    p "My paragraph!"
                     f4
                     f2
                     Frag("p", [x])
