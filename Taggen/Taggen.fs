@@ -3,7 +3,7 @@ open System.Text.RegularExpressions
 open System.Collections
 
 let RegMatch pattern input =
-    let matches = Regex.Matches(input, pattern)
+    let matches = Regex.Matches(input, pattern, RegexOptions.Compiled)
     matches |> Seq.cast
     |> Seq.map (fun (m : Match) ->
         [for g in m.Groups -> (g.Value)])
@@ -28,20 +28,37 @@ let writeId tagText =
     else
         Seq.map (fun groups -> groups |> List.map (fun (x : string) -> sprintf " id=\"%s\"" (x.Trim('#'))) |> foldStrings) matches |> foldStrings
 
+let writeAttr attr = 
+    match attr with
+    | Some m -> 
+        m 
+        |> Map.toSeq
+        |> Seq.map (fun (key, value) -> sprintf " %s=\"%s\"" key value)
+        |> foldStrings
+    | None -> ""
+
 type Fragment =
     | Text of string
-    | Frag of string * (Fragment seq)
+    | Frag of string * seq<Fragment>
+    | FragAttr of string * Map<string, string> Option * seq<Fragment> 
 
 let rec printFrag fragment =
-    match fragment with
-    | Text t -> t
-    | Frag (tag, children) ->
+    let strFrag frag =
+        let tag, attr, children = frag
         let tagName = writeTagname tag
         let classes = writeClasses tag
+        let attrs = writeAttr attr
         let id = writeId tag
-        let openContents = sprintf "%s%s%s" tagName classes id
+        let openContents = sprintf "%s%s%s%s" tagName id classes attrs
         let innerText = Seq.map printFrag children |> foldStrings
         if children = Seq.empty then
             sprintf "<%s/>" openContents
         else
             sprintf "<%s>%s</%s>" openContents innerText tagName
+
+    match fragment with
+    | Text t -> t
+    | Frag (tag, children) ->
+        strFrag (tag, None, children)
+    | FragAttr (tag, attr, children) ->
+        strFrag (tag, attr, children)
