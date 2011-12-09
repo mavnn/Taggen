@@ -12,25 +12,27 @@ let f3 = Frag("b", [Text "boo"])
 let f4 = Frag("div.fadeIn.fadeOut#myContent", [f2;f3])
 let f5 x = Frag("div", 
                 [
-                    img "An image of an image." "http://example.com/image.jpg"
-                    p "My paragraph!"
+                    img_ "An image of an image." "http://example.com/image.jpg"
+                    p_ "My paragraph!"
                     f4
-                    img "Another image" "http://example.com/image2.jpg" +. ".right"
                     f2
-                    p "A paragraph with class and id!" +. "#withIdAndClass.myClass2"
-                    p "With random attributes." ++ [("randomAttr", "withRandomValue")]
                     Frag("p", [x])
-                    !<> "p"
                 ]
              )
 
 let f6 x =
-    !<> "html"
-    <<< (!<> "body"
-            <<< !<> "div" +. ".content"
-            <<< img "hello world" "/world.jpg"
-            <<< p "My blue paragraph!" ++ [("style", "{ color : blue; }")]
-            <<< p x +. "#actualContent")
+    html
+    <>+ (head
+        <<+ [
+            ])
+    <>+ (body 
+        <>+ (div +. ".content"
+            <<+ [
+                    img_ "hello world" "/world.jpg"
+                    p_ "My blue paragraph!" ++ [("style", "{ color : blue; }")]
+                    p_ x +. "#actualContent"
+                    span +~ "Hello world!"
+                ]))
 
 let pageFramework pageTitle navItems content =
     Frag("html",
