@@ -1,7 +1,7 @@
 ﻿open Taggen.Core
-open Taggen.Img
-open Taggen.Text
-open Taggen.Links
+open Taggen.HtmlHelpers
+open Taggen.Punctuation
+open Taggen.Utils
 
 let f1 = Text("boo")
 let f2 = 
@@ -15,18 +15,22 @@ let f5 x = Frag("div",
                     img "An image of an image." "http://example.com/image.jpg"
                     p "My paragraph!"
                     f4
+                    img "Another image" "http://example.com/image2.jpg" +. ".right"
                     f2
+                    p "A paragraph with class and id!" +. "#withIdAndClass.myClass2"
+                    p "With random attributes." ++ [("randomAttr", "withRandomValue")]
                     Frag("p", [x])
+                    !<> "p"
                 ]
              )
 
 let pageFramework pageTitle navItems content =
     Frag("html",
             [
-                Frag("Header",
-                        [Frag("Title", [Text pageTitle])]
+                Frag("header",
+                        [Frag("title", [Text pageTitle])]
                     )
-                Frag("Body",
+                Frag("body",
                         [
                             Frag("nav", navItems)
                             Frag("content", content)
@@ -46,5 +50,5 @@ let navItems =
     ]
 
 do
-    printfn "%s" (printFrag (pageFramework "My page" navItems [f5 (Text "Boo")]))
+    printfn "%s" (!!(pageFramework "My page" navItems [f5 (Text "Boo")]))
     System.Console.Read () |> ignore

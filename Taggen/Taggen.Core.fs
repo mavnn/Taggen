@@ -2,33 +2,34 @@
 open System.Text.RegularExpressions
 open System.Collections
 
-let RegMatch pattern input =
+let private RegMatch pattern input =
     let matches = Regex.Matches(input, pattern, RegexOptions.Compiled)
     matches |> Seq.cast |> Seq.toList
     |> List.map (fun (m : Match) ->
         [for g in m.Groups -> (g.Value)])
 
-let inline foldStrings strings = List.fold (fun acc item -> acc + item) "" strings
+let inline private foldStrings strings = List.fold (fun acc item -> acc + item) "" strings
 
-let writeTagname tagText = 
+let private writeTagname tagText = 
     RegMatch (@"\w+") tagText
     |> List.head 
     |> List.head
 
-let rec writeClasses tagText =
+let rec private writeClasses tagText =
     let classes = RegMatch (@"\.\w+") tagText |> List.concat |> List.map (fun dottedName -> dottedName.Trim '.')
     match List.length classes with
     | 0 -> ""
     | 1 -> sprintf " class=\"%s\"" (List.head classes)
     | _ -> List.fold (fun acc item -> acc + " " + item) (List.head classes) (List.tail classes) |> sprintf " class=\"%s\""
 
-let writeId tagText =
+let private writeId tagText =
     let matches = RegMatch (@"#\w+") tagText
-    if (List.length matches > 1) then failwith "An element can only have one id"
+    if (List.length matches > 1) then 
+        failwith "An element can only have one id"
     else
         List.map (fun groups -> groups |> List.map (fun (x : string) -> sprintf " id=\"%s\"" (x.Trim('#'))) |> foldStrings) matches |> foldStrings
 
-let writeAttr attr = 
+let private writeAttr attr = 
     match attr with
     | Some m -> 
         m 
