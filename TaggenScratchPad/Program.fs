@@ -24,6 +24,14 @@ let f5 x = Frag("div",
                 ]
              )
 
+let f6 x =
+    !<> "html"
+    <<< (!<> "body"
+            <<< !<> "div" +. ".content"
+            <<< img "hello world" "/world.jpg"
+            <<< p "My blue paragraph!" ++ [("style", "{ color : blue; }")]
+            <<< p x +. "#actualContent")
+
 let pageFramework pageTitle navItems content =
     Frag("html",
             [
@@ -51,4 +59,5 @@ let navItems =
 
 do
     printfn "%s" (!!(pageFramework "My page" navItems [f5 (Text "Boo")]))
+    printfn "%s" (!!(f6 "The article text?"))
     System.Console.Read () |> ignore
