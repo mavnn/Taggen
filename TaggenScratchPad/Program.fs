@@ -22,17 +22,15 @@ let f5 x = Frag("div",
 
 let f6 x =
     html
-    <>+ (head
-        <<+ [
-            ])
-    <>+ (body 
-        <>+ (div +. ".content"
-            <<+ [
+    ^<> (head ^<< [])
+    ^<> body 
+        ^<> div +. ".content"
+            ^<< [
                     img_ "hello world" "/world.jpg"
                     p_ "My blue paragraph!" ++ [("style", "{ color : blue; }")]
                     p_ x +. "#actualContent"
                     span +~ "Hello world!"
-                ]))
+                ]
 
 let pageFramework pageTitle navItems content =
     Frag("html",

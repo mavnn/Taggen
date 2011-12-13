@@ -21,7 +21,7 @@ let mailTo email =
 
 // 'Container tags' helpers - these are tags that some browers complain about if they don't have explicit closing tags.
 let private container tagName =
-    !<> tagName <>+ Text ""
+    !<> tagName ^<> Text ""
 
 let a = container "a"
 let b = container "b"
