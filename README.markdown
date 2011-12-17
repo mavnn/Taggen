@@ -25,3 +25,11 @@ let pageFramework pageTitle navItems content =
 
 
 Check out Program.fs in the TaggenScratchPad project for examples of it's current state, including experiments with various helper methods and styles.
+
+### Todo
+
+* Write more performant foldStrings method
+* Experiment with right and left associative infix 'punctuation' to ease fragment creation
+* ? use Manos as default host/get routing etc?
+* Finish list of html tag types
+* Add doctype helpers
