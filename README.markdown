@@ -4,7 +4,7 @@
 
 A simple DSL for generating HTML and XML within F#. Still under heavy development for a personal project.
 
-A simple strongly typed page template might look like this:
+A strongly typed page template might look like this:
 
 ``` fsharp
 let pageFramework pageTitle navItems content =
