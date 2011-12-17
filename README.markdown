@@ -8,11 +8,9 @@ A strongly typed page template might look like this:
 
 ``` fsharp
 let pageFramework pageTitle navItems content =
-
     Frag("html",
             [
                 Frag("header",
-
                         [Frag("title", [Text pageTitle])]
                     )
                 Frag("body",
