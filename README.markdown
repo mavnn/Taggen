@@ -32,7 +32,7 @@ let frameWork title contentFrag =
 
 ```
 
-(It's type is val frameWork : string -> List<Fragment> -> Fragment)
+(It's type is `string -> List<Fragment> -> Fragment`)
 
 or using the various helpers available:
 
@@ -69,7 +69,6 @@ or
 
 val it : string =
   "<html><head><title>My title</title></head><body><nav><ul><li id="homeLink" class="navItem"><a href="Home">/</a></li></ul></nav><div id="content"><p>An article here</p></div></body></html>"
-Check out scratchpad.fsx for examples of it's current state, including experiments with various helper methods and styles.
 ```
 
 Pretty printing is provided via the .net XmlDocument class (note this
@@ -97,6 +96,8 @@ val it : string =
   </body>
 </html>"
 ```
+
+Check out scratchpad.fsx for examples of it's current state, including experiments with various helper methods and styles.
 
 ### Todo
 
