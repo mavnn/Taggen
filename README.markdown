@@ -68,7 +68,7 @@ or
 > !(conciseFramework "My title" [p_ "An article here"])
 
 val it : string =
-  "<html><head><title>My title</title></head><body><nav><ul><li id="homeLink" class="navItem"><a href="Home">/</a></li></ul></nav><div id="content"><p>An article here</p></div></body></html>"
+  "<html><head><title>My title</title></head><body><nav><ul><li id="homeLink" class="navItem"><a href="/">Home</a></li></ul></nav><div id="content"><p>An article here</p></div></body></html>"
 ```
 
 Pretty printing is provided via the .net XmlDocument class (note this
@@ -86,7 +86,7 @@ val it : string =
     <nav>
       <ul>
         <li id="homeLink" class="navItem">
-          <a href="Home">/</a>
+          <a href="/">Home</a>
         </li>
       </ul>
     </nav>
