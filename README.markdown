@@ -47,7 +47,7 @@ let conciseFramework pageTitle contentFrag =
     +<> (head +<> title % pageTitle)
     +<> (body
         +<> (nav
-            +<> (ul %. "navItems"
+            +<> (ul %. "#navItems"
                 +<> (li %. "#homeLink.navItem" +<> linkTo "Home" "/")))
         +<> (div %. "#content"
             +<< contentFrag))
@@ -68,7 +68,7 @@ or
 > !(conciseFramework "My title" [p_ "An article here"])
 
 val it : string =
-  "<html><head><title>My title</title></head><body><nav><ul><li id="homeLink" class="navItem"><a href="/">Home</a></li></ul></nav><div id="content"><p>An article here</p></div></body></html>"
+  "<html><head><title>My title</title></head><body><nav><ul id="navItems"><li id="homeLink" class="navItem"><a href="/">Home</a></li></ul></nav><div id="content"><p>An article here</p></div></body></html>"
 ```
 
 Pretty printing is provided via the .net XmlDocument class (note this
@@ -84,7 +84,7 @@ val it : string =
   </head>
   <body>
     <nav>
-      <ul>
+      <ul id="navItems">
         <li id="homeLink" class="navItem">
           <a href="/">Home</a>
         </li>

@@ -50,7 +50,7 @@ let conciseFramework pageTitle contentFrag =
     +<> (head +<> title % pageTitle)
     +<> (body
         +<> (nav
-            +<> (ul %. "navItems"
+            +<> (ul %. "#navItems"
                 +<> (li %. "#homeLink.navItem" +<> linkTo "Home" "/")))
         +<> (div %. "#content"
             +<< contentFrag))
