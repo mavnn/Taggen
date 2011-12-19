@@ -50,6 +50,10 @@ let (!!) fragment =
 let (+.) fragment classes =
     addClassOrId classes fragment 
 
+/// Add classes or id to existing fragment using ".class#id" syntax
+let (%.) fragment classes =
+    addClassOrId classes fragment
+
 /// Add attributes as list of string, string tuples
 let (++) fragment attrs =
     addAttrs attrs fragment

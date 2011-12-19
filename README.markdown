@@ -4,32 +4,103 @@
 
 A simple DSL for generating HTML and XML within F#. Still under heavy development for a personal project.
 
-A strongly typed page template might look like this:
+A strongly typed page template might look like this using the raw Core
+library:
 
 ``` fsharp
-let pageFramework pageTitle navItems content =
+open Taggen.Core
+
+let frameWork title contentFrag =
     Frag("html",
-            [
-                Frag("header",
-                        [Frag("title", [Text pageTitle])]
-                    )
-                Frag("body",
+        [
+            Frag("head", [Frag("title", [Text title])])
+            Frag("body",
+                [
+                    Frag("nav",
                         [
-                            Frag("nav", navItems)
-                            Frag("content", content)
-                        ]
-                    )
-            ]
-        )
+                            Frag("ul#navItems",
+                                [
+                                    Frag("li#homeLink.navItem",
+                                        [
+                                            FragAttr("a", Some [("href", "/")], [Text "Home"])
+                                        ])
+                                ])
+                        ])
+                    Frag("div#content", contentFrag)
+                ])
+        ])
+
 ```
 
+(It's type is val frameWork : string -> List<Fragment> -> Fragment)
 
-Check out Program.fs in the TaggenScratchPad project for examples of it's current state, including experiments with various helper methods and styles.
+or using the various helpers available:
+
+``` fsharp
+open Taggen.Core
+open Taggen.HtmlHelpers
+open Taggen.Punctuation
+open Taggen.Utils
+
+let conciseFramework pageTitle contentFrag =
+    html
+    +<> (head +<> title % pageTitle)
+    +<> (body
+        +<> (nav
+            +<> (ul %. "navItems"
+                +<> (li %. "#homeLink.navItem" +<> linkTo "Home" "/")))
+        +<> (div %. "#content"
+            +<< contentFrag))
+```
+
+After construction, you can call them as standard F# functions:
+
+``` fsharp
+> printFrag (frameWork "My title" [Frag("p",[Text "An article here"])])
+
+val it : string =
+  "<html><head><title>My title</title></head><body><nav><ul id="navItems"><li id="homeLink" class="navItem"><a href="/">Home</a></li></ul></nav><div id="content"><p>An article here</p></div></body></html>"
+```
+
+or
+
+``` fsharp
+> !(conciseFramework "My title" [p_ "An article here"])
+
+val it : string =
+  "<html><head><title>My title</title></head><body><nav><ul><li id="homeLink" class="navItem"><a href="Home">/</a></li></ul></nav><div id="content"><p>An article here</p></div></body></html>"
+Check out scratchpad.fsx for examples of it's current state, including experiments with various helper methods and styles.
+```
+
+Pretty printing is provided via the .net XmlDocument class (note this
+will fail if your Taggen fragments aren't valid XML):
+
+``` fsharp
+> !!(conciseFramework "My title" [p_ "An article here"])
+
+val it : string =
+  "<html>
+  <head>
+    <title>My title</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li id="homeLink" class="navItem">
+          <a href="Home">/</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="content">
+      <p>An article here</p>
+    </div>
+  </body>
+</html>"
+```
 
 ### Todo
 
 * Write more performant foldStrings method
 * Experiment with right and left associative infix 'punctuation' to ease fragment creation
 * ? use Manos as default host/get routing etc?
-* Finish list of html tag types
 * Add doctype helpers
