@@ -22,7 +22,7 @@ let f5 x = Frag("div",
 
 let f6 x =
     html
-    ^<> (head ^<< [])
+    +<> (head ^<< [])
     ^<> body 
         ^<> div +. ".content"
             ^<< [
@@ -31,6 +31,19 @@ let f6 x =
                     p_ x +. "#actualContent"
                     span +~ "Hello world!"
                 ]
+
+let f7 () =
+    html
+    |<> head 
+        +<> title % "My title"
+        +<> meta % "Some meta data"
+    |<> body ^<> h1 +~ "Heading 1"
+
+let f8 =
+    html
+    |> (addChild <| head +<> title % "My title" +<> meta % "Some stuff")
+
+    
 
 let pageFramework pageTitle navItems content =
     Frag("html",
@@ -60,4 +73,5 @@ let navItems =
 do
     printfn "%s" (!!(pageFramework "My page" navItems [f5 (Text "Boo")]))
     printfn "%s" (!!(f6 "The article text?"))
+    printfn "%s" (!!(f8))
     System.Console.Read () |> ignore

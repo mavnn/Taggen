@@ -16,3 +16,32 @@ let prettyPrint frag =
     let reader = new StreamReader (mem)
     reader.ReadToEnd ()
 
+
+/// Add child to fragment (as last child)
+let addChild child fragment =
+    match fragment with
+    | FragAttr (tag, attr, children) -> FragAttr (tag, attr, List.append children [child])
+    | _ -> failwith "You cannot add a child fragment to a Text fragment."
+
+/// Add inner text to fragment
+let addText text fragment =
+    addChild (Text text) fragment
+
+/// Add list of children to fragment
+let addChildList newChildren fragment =
+    match fragment with
+    | FragAttr (tag, attr, children) -> FragAttr (tag, attr, List.append children newChildren)
+    | _ -> failwith "You cannot add children to a Text fragment."
+
+/// Add classes or id to existing fragment using ".class#id" syntax
+let addClassOrId classes fragment =
+    match fragment with
+    | FragAttr (tag, attr, children) ->
+        updateAttr fragment (unpackClasses classes)
+    | _ -> failwith "You cannot add classes or id to a Text fragment."
+
+/// Add attributes as list of string, string tuples
+let addAttrs attrs fragment =
+    match fragment with
+    | FragAttr (tag, attr, children) -> FragAttr(tag, Some attrs, children)
+    | _ -> failwith "You cannot add attributes to a Text fragment."
