@@ -35,3 +35,6 @@ test/
 train/
 
 TK Files/*.xml
+**AssemblyInfoCache.dat
+**.cache.dat
+*.ncrunchsolution

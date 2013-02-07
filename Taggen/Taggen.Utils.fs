@@ -1,4 +1,5 @@
-﻿module Taggen.Utils
+﻿[<AutoOpen>]
+module Taggen.Utils
 open Taggen.Core
 open System.IO
 open System.Xml

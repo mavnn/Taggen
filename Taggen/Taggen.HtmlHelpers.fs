@@ -1,5 +1,4 @@
 ﻿module Taggen.HtmlHelpers
-open Taggen.Core
 open Taggen.Punctuation
 
 /// <summary>Image tag helper</summary>

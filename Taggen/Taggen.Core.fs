@@ -1,4 +1,5 @@
-﻿module Taggen.Core
+﻿[<AutoOpen>]
+module Taggen.Core
 open System.Text.RegularExpressions
 open System.Collections
 open System.Web

@@ -1,6 +1,4 @@
 ﻿module Taggen.Punctuation
-open Taggen.Core
-open Taggen.Utils
 
 /// Create Fragment without children
 let (!<>) tagName =
