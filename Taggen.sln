@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{4925A630-B079-445d-BCD4-3A9C94FE9307}") = "Taggen", "Taggen\Taggen.fsproj", "{17ef7364-0427-4ff8-8785-26485c4a364f}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Taggen", "Taggen\Taggen.fsproj", "{17EF7364-0427-4FF8-8785-26485C4A364F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,21 +13,21 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{17ef7364-0427-4ff8-8785-26485c4a364f}.Release|x86.ActiveCfg = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Taggen\Taggen.fsproj
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{17EF7364-0427-4FF8-8785-26485C4A364F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Taggen\Taggen.fsproj
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Taggen</id>
+    <version>0.1</version>
+    <title>Taggen</title>
+    <authors>Michael Newton (mavnn)</authors>
+    <owners>Michael Newton (mavnn)</owners>
+    <licenseUrl>https://github.com/mavnn/Taggen</licenseUrl>
+    <projectUrl>https://github.com/mavnn/Taggen</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HTML dsl</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>html</tags>
+  </metadata>
+</package>
