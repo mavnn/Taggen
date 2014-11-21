@@ -1,6 +1,6 @@
 # Taggen
 
-## Light weight HTML generation in F#
+## Light weight HTML generation for the F# language
 
 A simple DSL for generating HTML and XML within F#. Still under heavy development for a personal project.
 
