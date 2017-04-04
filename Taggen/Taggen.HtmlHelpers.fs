@@ -1,5 +1,5 @@
 ﻿module Taggen.HtmlHelpers
-open Taggen.Punctuation
+open Taggen.Operators
 
 /// <summary>Image tag helper</summary>
 /// <param name="alt">Alternative text</param>
