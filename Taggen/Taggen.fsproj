@@ -70,7 +70,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Taggen.Core.fs" />
     <Compile Include="Taggen.Utils.fs" />
-    <Compile Include="Taggen.Punctuation.fs" />
+    <Compile Include="Taggen.Operators.fs" />
     <Compile Include="Taggen.HtmlHelpers.fs" />
     <None Include="scratchpad.fsx" />
   </ItemGroup>
