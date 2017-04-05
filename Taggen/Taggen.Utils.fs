@@ -40,9 +40,3 @@ let addClassOrId classes fragment =
     | FragAttr (tag, attr, children) ->
         updateAttr fragment (unpackClasses classes)
     | _ -> failwith "You cannot add classes or id to a Text fragment."
-
-/// Add attributes as list of string, string tuples
-let addAttrs attrs fragment =
-    match fragment with
-    | FragAttr (tag, attr, children) -> FragAttr(tag, Some attrs, children)
-    | _ -> failwith "You cannot add attributes to a Text fragment."

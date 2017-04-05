@@ -1,5 +1,6 @@
 ﻿[<AutoOpen>]
 module Taggen.Core
+open System
 open System.Text.RegularExpressions
 open System.Collections
 open System.Web
@@ -10,14 +11,16 @@ let private RegMatch pattern input =
     |> List.map (fun (m : Match) ->
         [for g in m.Groups -> (g.Value)])
 
-let inline private foldStrings strings = List.fold (fun acc item -> acc + item) "" strings
+let inline private foldStrings strings =
+    List.fold (fun acc item -> acc + item) "" strings
+    |> fun s -> s.Trim()
 
 let private writeTagname tagText = 
     RegMatch (@"\w+") tagText
     |> List.head 
     |> List.head
 
-let rec private writeClasses tagText =
+let private writeClasses tagText =
     let classes = RegMatch (@"\.\w+") tagText |> List.concat |> List.map (fun dottedName -> dottedName.Trim '.')
     match List.length classes with
     | 0 -> ""
@@ -32,45 +35,41 @@ let private writeId tagText =
         List.map (fun groups -> groups |> List.map (fun (x : string) -> x.Trim '#') |> foldStrings) matches |> foldStrings
 
 let private writeAttr attr = 
-    match attr with
-    | Some m -> 
-        m 
-        |> List.map (fun (key, value) -> sprintf " %s=\"%s\"" key value)
-        |> foldStrings
-    | None -> ""
+    attr 
+    |> List.map (fun (key, value) -> sprintf " %s=\"%s\"" key value)
+    |> foldStrings
 
 type Fragment =
     | Text of string
     | RawText of string
-    | FragAttr of string * List<string * string> Option * List<Fragment> 
+    | FragAttr of string * List<string * string> * List<Fragment> 
 
 let unpackClasses tag =
     let classes = writeClasses tag
     let id = writeId tag
-    if classes <> "" then Some([("class", classes)]) else None
-    |> fun x -> if id <> "" then Some(("id", id)::(match x with | None -> [] | Some x -> x)) else None
+    [
+        if not <| String.IsNullOrWhiteSpace classes then
+            yield "class", classes
+        if not <| String.IsNullOrWhiteSpace id then
+            yield "id", id
+    ]
 
-let rec updateAttr frag maybeNewAttr =
+let rec updateAttr frag newAttrs =
     match frag with
     | FragAttr (tagName, attr, children) ->
-        match maybeNewAttr with
-        | None -> frag
-        | Some newAttr ->
-            match newAttr with
-            | [] -> frag
-            | h::t -> 
-                let replaceAttr currentAttr =
-                    if List.exists (fun old -> (fst old) = (fst h)) currentAttr then
-                        List.map (fun old -> if (fst old) = (fst h) then h else old) currentAttr
-                    else
-                        h::currentAttr
-                let newFrag =
-                    match attr with
-                    | None -> FragAttr (tagName, Some newAttr, children)
-                    | Some oldAttrs -> FragAttr (tagName, Some(replaceAttr oldAttrs), children)
-                updateAttr newFrag (Some t)
+        match newAttrs with
+        | [] -> frag
+        | h::t -> 
+            let replaceAttr currentAttr =
+                if List.exists (fun old -> (fst old) = (fst h)) currentAttr then
+                    List.map (fun old -> if (fst old) = (fst h) then h else old) currentAttr
+                else
+                    h::currentAttr
+
+            let newFrag =
+                FragAttr (tagName, replaceAttr attr, children)
+            updateAttr newFrag t
     | _ -> failwith "You can't add attributes to a text fragment."
-    
 
 let Frag (tag, fragments) =
     let tagName = writeTagname tag

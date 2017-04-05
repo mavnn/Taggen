@@ -1,19 +1,19 @@
 #load "Taggen.Core.fs"
 #load "Taggen.Utils.fs"
-#load "Taggen.Punctuation.fs"
+#load "Taggen.Operators.fs"
 #load "Taggen.HtmlHelpers.fs"
 
 open Taggen.Core
 open Taggen.HtmlHelpers
-open Taggen.Punctuation
+open Taggen.Operators
 open Taggen.Utils
 
 let f1 = Text("boo")
 let f2 =
     FragAttr("p",
-        Some([("style", "background : red;")]),
+        [("style", "background : red;")],
         [Text "My paragraph with a red background."])
-let f3 = Frag("b", [Text "boo"])
+let f3 = Frag("b.bold", [Text "boo"])
 let f4 = Frag("div.fadeIn.fadeOut#myContent", [f2;f3])
 let f5 x = Frag("div",
                 [
@@ -37,7 +37,7 @@ let frameWork pageTitle contentFrag =
                                 [
                                     Frag("li#homeLink.navItem",
                                         [
-                                            FragAttr("a", Some [("href", "/")], [Text "Home"])
+                                            FragAttr("a", ["href", "/"], [Text "Home"])
                                         ])
                                 ])
                         ])
@@ -55,5 +55,3 @@ let conciseFramework pageTitle contentFrag =
         +<> (div %. "#content"
             +<< contentFrag))
 
-do
-    System.Console.Read () |> ignore

@@ -50,4 +50,4 @@ let (%.) fragment classes =
 
 /// Add attributes as list of string, string tuples
 let (++) fragment attrs =
-    addAttrs attrs fragment
+    updateAttr fragment attrs

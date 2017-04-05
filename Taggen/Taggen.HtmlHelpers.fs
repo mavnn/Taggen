@@ -5,7 +5,7 @@ open Taggen.Operators
 /// <param name="alt">Alternative text</param>
 /// <param name="source">Location of image file</param>
 let img_ alt source =
-    FragAttr ("img", (Some ["src", source; "alt", alt]), [])
+    FragAttr ("img", ["src", source; "alt", alt], [])
 
 /// Creates a paragraph tag with inner text of 'text'
 let p_ text =
@@ -13,10 +13,10 @@ let p_ text =
 
 // Link helpers
 let linkTo text location =
-    FragAttr ("a", Some([("href", location)]), [Text text])
+    FragAttr ("a", ["href", location], [Text text])
 
 let mailTo email =
-    FragAttr ("a", Some([("href", email)]), [Text email])
+    FragAttr ("a", [("href", email)], [Text email])
 
 // 'Container tags' helpers - these are tags that some browers complain about if they don't have explicit closing tags.
 let private container tagName =
