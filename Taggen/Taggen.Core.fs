@@ -13,7 +13,6 @@ let private RegMatch pattern input =
 
 let inline private foldStrings strings =
     List.fold (fun acc item -> acc + item) "" strings
-    |> fun s -> s.Trim()
 
 let private writeTagname tagText = 
     RegMatch (@"\w+") tagText
