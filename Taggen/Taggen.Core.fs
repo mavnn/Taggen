@@ -20,14 +20,14 @@ let private writeTagname tagText =
     |> List.head
 
 let private writeClasses tagText =
-    let classes = RegMatch (@"\.\w+") tagText |> List.concat |> List.map (fun dottedName -> dottedName.Trim '.')
+    let classes = RegMatch (@"\.[^.^#]*") tagText |> List.concat |> List.map (fun dottedName -> dottedName.Trim '.')
     match List.length classes with
     | 0 -> ""
     | 1 -> List.head classes
     | _ -> List.fold (fun acc item -> acc + " " + item) (List.head classes) (List.tail classes)
 
 let private writeId tagText =
-    let matches = RegMatch (@"#\w+") tagText
+    let matches = RegMatch (@"#[^.^#]*") tagText
     if (List.length matches > 1) then 
         failwith "An element can only have one id"
     else
